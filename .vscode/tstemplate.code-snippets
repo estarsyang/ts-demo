@@ -1,0 +1,30 @@
+{
+  "TS Vue Template": {
+    "prefix": "tsvue",
+    "body": [
+      "<template>",
+      "  <div class=\"${1:page}\">\n",
+      "  </div>",
+      "</template>\n",
+      "<script lang=\"ts\">",
+      "import { Vue, Component } from 'vue-property-decorator';",
+      "export default class ${2:Index} extends Vue {",
+      "// @Prop({ default: () => [] })",
+      "// private readonly menu!: Array<Record<string, unknown>>;\n",
+      "// computed",
+      "// get computedMsg () {}\n",
+      "// lifecycle\n",
+      "created () { }\n",
+      "mounted () {}\n",
+      "// methods \n",
+      "}",
+      "</script>\n",
+      "<style scoped lang=\"scss\">",
+      "  .${1:page} {",
+      "  }",
+      "</style>",
+      ""
+    ],
+    "description": "Log output to console"
+  }
+}
