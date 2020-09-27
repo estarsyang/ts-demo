@@ -56,3 +56,36 @@ lls, transpiling JSX)? Yes
     4. 新建 vue文件，输入 ts,出现 tsvue提示，确定，自动生成ts模板
 
 5. 注意看我们的模板中引用了 [vue-property-decorator](https://github.com/kaorun343/vue-property-decorator)库，那么这里就要安装相应的依赖了
+    1. 安装成功后运行报异常。版本安装不对，可以降到8的版本
+        ```js
+        // error
+        This dependency was not found:
+
+        * vue-class-component in ./node_modules/vue-property-decorator/lib/vue-property-decorator.js
+
+        To install it, you can run: npm install --save vue-class-component
+        xxxxx
+        // reason 安装过程中已经提示没有安装依赖了。9的版本没有安装有依赖，那么你可以自己安装 8的版本，之前我开发自动安装了 8.5.1 ，那么就重新装一下8
+        warning " > vue-property-decorator@9.0.0" has unmet peer dependency "vue-class-component@*".
+        // 先remove 再安装，安装结束后，再次启动，搞定。
+        yarn remove vue-property-decorator
+        yarn add vue-property-decorator@8.5.1
+        ```
+    2. 第二个报错 [修复方法](https://stackoverflow.com/questions/38271273/experimental-decorators-warning-in-typescript-compilation)
+        ```js
+        // error
+        Experimental support for decorators is a feature that is subject to change in a future release. Set the 'experimentalDecorators' option in your 'tsconfig' or 'jsconfig' to remove this warning.
+        import {Vue, Component} from 'vue-property-decorator'
+        @Component
+        export default class HelloWorld extends Vue {
+                                      ^
+          private msg = 'HelloWorld'
+        }
+        // fix tsconfig中添加属性
+        {
+            "compilerOptions": {
+                "experimentalDecorators": true,
+                "allowJs": true
+            }
+        }
+        ```
