@@ -2,7 +2,7 @@
 
 ### init
 1. ```vue create ts```
-2. 选择默认就好了 ❯ default (babel, eslint)
+2. 选择默认就好了 ❯ default (babel, eslint)。如果选择了ts的模板，直接看第4点。
 3. ```vue add typescript```
     - Use class-style component syntax? No  
     - Use Babel alongside TypeScript (required for modern mode, auto-detected polyfi
