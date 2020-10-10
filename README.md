@@ -31,7 +31,8 @@ lls, transpiling JSX)? Yes
             "  </div>",
             "</template>\n",
             "<script lang=\"ts\">",
-            "import { Vue, Component } from 'vue-property-decorator';",
+            "import { Vue, Component, Prop, Watch } from 'vue-property-decorator';",
+            "@Component",
             "export default class ${2:Index} extends Vue {",
             "// @Prop({ default: () => [] })",
             "// private readonly menu!: Array<Record<string, unknown>>;\n",
@@ -51,7 +52,7 @@ lls, transpiling JSX)? Yes
             ],
             "description": "Log output to console"
         }
-    }
+        }
     ```
     4. 新建 vue文件，输入 ts,出现 tsvue提示，确定，自动生成ts模板
 

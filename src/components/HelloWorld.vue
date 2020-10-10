@@ -8,18 +8,11 @@
 </template>
 
 <script lang="ts">
-// import Vue from 'vue';
 import {Vue, Component} from 'vue-property-decorator'
 @Component
 export default class HelloWorld extends Vue {
   private msg = 'HelloWorld'
 }
-// export default Vue.extend({
-//   name: 'HelloWorld',
-//   props: {
-//     msg: String,
-//   },
-// });
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

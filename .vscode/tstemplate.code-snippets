@@ -8,6 +8,7 @@
       "</template>\n",
       "<script lang=\"ts\">",
       "import { Vue, Component, Prop, Watch } from 'vue-property-decorator';",
+      "@Component",
       "export default class ${2:Index} extends Vue {",
       "// @Prop({ default: () => [] })",
       "// private readonly menu!: Array<Record<string, unknown>>;\n",
