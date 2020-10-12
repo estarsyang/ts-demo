@@ -90,3 +90,122 @@ lls, transpiling JSX)? Yes
             }
         }
         ```
+6. 安装完依赖，就开始写具体的代码了。
+```html
+<div class="hello">
+    <p>data:{{ msg }}</p>
+    <p>props:{{ propsValue }}</p>
+    <p>computed: {{computedValue}}</p>
+    <p>watch {{watchValue}}</p>
+    <input
+      type="text"
+      v-model="msg"
+    />
+    <RefDemo ref="refdemo" />
+</div>
+```
+```ts
+import { Vue, Component, Prop, Watch } from "vue-property-decorator";
+import RefDemo from "./RefDemo.vue";
+@Component({
+  name: "helloworld",
+  components: {
+    RefDemo,
+  },
+})
+export default class HelloWorld extends Vue {
+  // props
+  @Prop({ default: "props defaultValue", type: String, required: false })
+  readonly propsValue!: string;
+  // computed
+  get computedValue() {
+    return "computed defaultValue";
+  }
+  // watch
+  @Watch("msg")
+  onMsgChange(val: string, oldVal: string) {
+    console.log(val);
+    console.log(oldVal);
+    
+    this.changeWatchValue(val);
+  }
+  // data
+  private msg = "HelloWorld";
+  private watchValue = "";
+  // methods
+  changeWatchValue(val) {
+    this.watchValue = val;
+  }
+  // lifecycle
+  mounted() {
+    console.log(this.$refs.refdemo);
+  }
+}
+```
+```html
+// refdemo component
+<template>
+  <div>
+    {{msg}}
+  </div>
+</template>
+
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator';
+@Component
+export default class Index extends Vue {
+  private msg ='这是一个refs使用demo'
+}
+</script>
+
+<style scoped lang="less">
+</style>
+
+```
+7. 写代码过程中发现未有响应的ts提示，例如 函数没有要求返回值等等，需要安装 ts eslint 插件 @typescript-eslint/parser @typescript-eslint/eslint-plugin，同时新建eslint 配置文件，个人喜欢新建文件，所以我把 package.json 中的eslintconfig 删除掉了。然后新建 eslint文件，复制一下内容，修复 警告
+```js
+// .eslintrc 内容
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "node": true,
+    "jasmine": true,
+    "jest": true,
+    "es6": true
+  },
+  "parser": "vue-eslint-parser",
+  "parserOptions": {
+    "parser": "@typescript-eslint/parser",
+    "ecmaFeatures": {
+      "legacyDecorators": true
+    }
+  },
+  "plugins": ["@typescript-eslint"],
+  "extends": [
+    "plugin:vue/essential",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "rules": {
+    "comma-dangle": [2, "always-multiline"],
+    "no-var": "error",
+    "camelcase": "off",
+    "no-extra-boolean-cast": "off",
+    "semi": ["error", "always"],
+    "vue/require-prop-types": "off",
+    "vue/require-default-prop": "off",
+    "vue/no-reserved-keys": "off",
+    "vue/prop-name-casing": "off",
+    "no-multiple-empty-lines": [
+      "error",
+      {
+        "max": 1,
+        "maxEOF": 1
+      }
+    ],
+    "eol-last": ["error", "always"],
+    "@typescript-eslint/ban-ts-ignore": "off",
+    "@typescript-eslint/ban-ts-comment": "off" // close ts-ignore chekk
+  }
+}
+```

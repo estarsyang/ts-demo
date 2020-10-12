@@ -20,7 +20,7 @@
       "// methods \n",
       "}",
       "</script>\n",
-      "<style scoped lang=\"scss\">",
+      "<style scoped lang=\"less\">",
       "  .${1:page} {",
       "  }",
       "</style>",

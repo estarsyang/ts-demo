@@ -1,34 +1,56 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-typescript" target="_blank" rel="noopener">typescript</a></li>
-    </ul>
+    <p>data:{{ msg }}</p>
+    <p>props:{{ propsValue }}</p>
+    <p>computed: {{computedValue}}</p>
+    <p>watch {{watchValue}}</p>
+    <input
+      type="text"
+      v-model="msg"
+    />
+    <RefDemo ref="refdemo" />
   </div>
 </template>
 
 <script lang="ts">
-import {Vue, Component} from 'vue-property-decorator'
-@Component
+import { Vue, Component, Prop, Watch } from "vue-property-decorator";
+import RefDemo from "./RefDemo.vue";
+@Component({
+  name: "helloworld",
+  components: {
+    RefDemo,
+  },
+})
 export default class HelloWorld extends Vue {
-  private msg = 'HelloWorld'
+  // props
+  @Prop({ default: "props defaultValue", type: String, required: false })
+  readonly propsValue!: string;
+  // computed
+  get computedValue():string {
+    return "computed defaultValue";
+  }
+  // watch
+  @Watch("msg")
+  onMsgChange(val: string, oldVal: string):void {
+    console.log(val);
+    console.log(oldVal);
+    
+    this.changeWatchValue(val);
+  }
+  // data
+  private msg = "HelloWorld";
+  private watchValue = "";
+  // methods
+  changeWatchValue(val: string):void {
+    this.watchValue = val;
+  }
+  // lifecycle
+  mounted():void {
+    console.log(this.$refs.refdemo);
+  }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
 </style>
